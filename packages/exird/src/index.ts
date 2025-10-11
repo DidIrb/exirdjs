@@ -50,17 +50,22 @@ program
     const cwd = process.cwd()
     const workflowsDir = path.join(cwd, ".exird", "workflows")
 
+    if (!fs.existsSync(workflowsDir)) {
+      console.error(chalk.gray("EXT"), "No workflows directory found.")
+      return
+    }
+
+    const files = fs
+      .readdirSync(workflowsDir)
+      .filter((file) => file.endsWith(".yaml") || file.endsWith(".yml"))
+      .map((file) => file.replace(/\.yaml$|\.yml$/, ""))
+
+    if (files.length === 0) {
+      console.log("No workflows found in .exird/workflows.")
+      return
+    }
+
     if (!workflowName) {
-      const files = fs
-        .readdirSync(workflowsDir)
-        .filter((file) => file.endsWith(".yaml") || file.endsWith(".yml"))
-        .map((file) => file.replace(/\.yaml$|\.yml$/, ""))
-
-      if (files.length === 0) {
-        console.log("No workflows found in .exird/workflows.")
-        return
-      }
-
       workflowName = await promptWorkflowSelection(files)
     }
 

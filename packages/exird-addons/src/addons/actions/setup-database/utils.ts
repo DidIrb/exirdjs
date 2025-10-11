@@ -1,12 +1,12 @@
 import chalk from "chalk"
 import { checkDirectory } from "../setup-exird/utils"
 import { getDatabase, getDBType, getMapper } from "./prompts"
-import { updateConfig, updateENV } from "../shared/utils"
+import { configPath, execPromise, updateConfig, updateENV } from "../shared/utils"
 import { setupExpress } from "../setup-express"
-import { setupMongoDB } from "./db/mongodb"
 import { ExirdConfig } from "../../../types"
 import path from "path"
 import fs from "fs-extra"
+import { setupMongoDB } from "./db/mongodb/"
 
 export const successMessage = () => {
   const message = `
@@ -36,8 +36,13 @@ export const ReinitializeExpress = async (force: boolean) => {
     console.log(chalk.yellow("WRN"), "Express Required!, Initializing...")
     await setupExpress.execute(force)
   } else {
-    await updateConfig("actions", ["setup-express"])
+    await updateConfig("actions", ["setup-express"], configPath)
   }
+}
+
+// Shared function to install packages
+export const installPackages = (packageManager: string, packages: string[]) => {
+  return execPromise(`${packageManager} install ${packages.join(" ")}`)
 }
 
 export const setupEnvironmentVariables = () => {

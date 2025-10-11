@@ -26,16 +26,15 @@ export async function getDatabase(type: string): Promise<string> {
 }
 
 export async function getMapper(type: string): Promise<string> {
-  const response: string = await prompt({
+  const response: { mapper: boolean } = await prompt({
     type: "confirm",
     name: "mapper",
     message: `Do you want to use, ${type === "NoSQL" ? "Object Data Modeling" : "Object-Relational Mapping"}?`,
     initial: true,
   })
 
-  if (response) {
+  if (response.mapper) {
     const choices = type === "SQL" ? ["Sequelize", "TypeORM", "Prisma"] : ["Mongoose", "Prisma"]
-
     const res: ExirdConfig = await prompt({
       type: "select",
       name: "database.mapper",

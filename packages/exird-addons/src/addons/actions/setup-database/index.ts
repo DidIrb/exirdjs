@@ -12,24 +12,31 @@ const setupDatabase = {
   description: "Sets up the database configuration for the project.",
   execute: async (force: boolean = false) => {
     try {
-      console.log(chalk.cyan("MSG"), "Only MongoDB supported!, More Features Pending...")
       if (!fs.existsSync(configPath)) await setupExird.execute(force)
       const config: ExirdConfig = fs.readJsonSync(configPath)
       if (!config.addons["env"]) {
         setupEnv.execute()
-        updateConfig("addons", { ...config.addons, env: setupEnv.description })
+        updateConfig("addons", { ...config.addons, env: setupEnv.description }, configPath)
       }
       if (checkAction("setup-database", force)) return
+
       await ReinitializeExpress(force)
 
       if (!config?.database?.name) {
+        // TO BE CHANGED LATER TO ADD MORE DATABASES BUT FOR NOW ONLY MONGODB WILL SUFFICE
+        console.log(chalk.cyan("MSG"), "Only MongoDB supported!, More Features Pending...")
         config.database = await setupDB()
-        await updateConfig("database", config.database)
+        await updateConfig("database", config.database, configPath)
       }
 
-      NavigateDB(config)
+      // Setup Database using MongoDB
 
-      updateConfig("actions", ["setup-database"])
+      // Setup Database for MySQL and PostgreSQL
+
+      // This can be done later for now let us focus on setting it up with MONGODB ONLY
+
+      NavigateDB(config)
+      updateConfig("actions", ["setup-database"], configPath)
     } catch (error) {
       globalErrorHandler(error)
     }

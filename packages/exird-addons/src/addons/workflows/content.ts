@@ -1,3 +1,4 @@
+// THIS IS A TEMPLATE FOR RUNNING A BASIC WORKFLOW
 export const exirdjsContent = `
 name: ExirdJS Workflow
 

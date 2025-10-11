@@ -7,11 +7,14 @@ import { getEntryPoint, getLanguage, getModuleSystem, getPackageManager, getProj
 export async function generateConfig(projectDetails: DirectoryCheckResult) {
   const language = projectDetails.hasTypeScript ? "TypeScript" : await getLanguage()
   const entry = projectDetails.entry || (await getEntryPoint(language))
-  const type = await getDBType()
+  const type = projectDetails.databaseType || (await getDBType())
+  const databaseName = projectDetails.database || (await getDatabase(type))
+  const mapper = projectDetails.mapper || (type !== "NoSQL" ? await getMapper(type) : undefined)
+
   const database = {
-    type: projectDetails.databaseType || type,
-    name: projectDetails.database || (await getDatabase(type)),
-    mapper: projectDetails.mapper || (await getMapper(projectDetails.databaseType || type)),
+    type: type.toLowerCase(),
+    name: databaseName.toLowerCase(),
+    ...(mapper && { mapper: mapper.toLowerCase() }),
   }
 
   const config = {

@@ -69,6 +69,15 @@ export async function getFolder(): Promise<string> {
     type: "input",
     name: "newFolderName",
     message: "Enter the name of the new folder:",
+    validate: (input: string) => {
+      if (input.trim() === ".") {
+        return 'Current directory (".") is not allowed. Please enter a valid folder name.'
+      }
+      if (input.trim().length < 3) {
+        return "Folder name must be at least 3 characters long."
+      }
+      return true
+    },
   })
   return response.newFolderName!
 }

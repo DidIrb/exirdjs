@@ -7,23 +7,34 @@ import { runActions } from "../actions/shared/actions"
 import Enquirer from "enquirer"
 import { WorkflowResponse } from "../../types"
 
+// COMMAND WORKFLOWS
 export async function promptWorkflowSelection(files: string[]): Promise<string> {
   const enquirer = new Enquirer<WorkflowResponse>()
 
-  const response = await enquirer.prompt({
-    type: "select",
-    name: "workflow",
-    message: "Select a workflow to run:",
-    choices: files,
-  })
-
-  return response.workflow
+  try {
+    const response = await enquirer.prompt({
+      type: "select",
+      name: "workflow",
+      message: "Select a workflow to run:",
+      choices: files,
+    })
+    return response.workflow
+  } catch (err) {
+    globalErrorHandler(err)
+    throw err
+  }
 }
 
 export const runWorkflow = async (workflowName: string): Promise<void> => {
   const cwd = process.cwd()
-  const workflowPaths = [path.join(cwd, `.exird/workflows/${workflowName}.yaml`), path.join(cwd, `.exird/workflows/${workflowName}.yml`)]
+  const workflowsDir = path.join(cwd, ".exird", "workflows")
 
+  if (!fs.existsSync(workflowsDir)) {
+    console.error(chalk.gray("EXT"), "No workflows directory found.")
+    return
+  }
+
+  const workflowPaths = [path.join(cwd, `.exird/workflows/${workflowName}.yaml`), path.join(cwd, `.exird/workflows/${workflowName}.yml`)]
   const workflowPath = workflowPaths.find(fs.existsSync)
 
   if (!workflowPath) {

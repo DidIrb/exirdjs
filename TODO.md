@@ -8,9 +8,16 @@ This file contains things the user is required to do in this project.
 
 - [ ] Set up Testing before build.
 - [ ] Protect github repository main branch.
+- [ ] Update tasks to show the file that is being updated
 - [ ] Add Code of conduct
+- [ ] Account for ORMs and without an ORM,
+      Javascript
+      Typescript
+      TypeORM
+      Sequelize
+      Prisma
 - [ ] Add Security Policy
-- [x] Set up version control for the packages.
+- [x] Set up version control for the packages
 - [ ] Ensure user uses the latest major version
 - [ ] Allow user to use latest version
 - [x] Migrate to using tsup to compile the code
@@ -25,6 +32,7 @@ This file contains things the user is required to do in this project.
   - [x] --version,-V, --v, -v.
   - [x] --help , -h, --h, -h.
   - **Expected Behavior** npm create exird@latest project-name --typescript
+    // CODE REFACTOR CHANGED PROCESS FROM THIS TO USE WORKFLOWS.
 - [x] Set up docs for project.
 - [x] Update cli to check if empty then run scaffolding
 - [x] Allow user to build on top of the existing code
@@ -54,7 +62,7 @@ This file contains things the user is required to do in this project.
 - [x] During install ask the user what they should call their code base or use . to specify that path to install it to.
 - [x] Remove files that are not wanted, node_modules, .npmrc, etc.
 - [x] Add types to the cli tool.
-- [x] Allow user to cancel and exit operation using cntr+c
+- [x] Allow user to cancel and exit operation using control+c
 
 ## Styling
 

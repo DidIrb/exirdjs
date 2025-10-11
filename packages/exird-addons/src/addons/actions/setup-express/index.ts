@@ -67,7 +67,7 @@ export const setupExpress: Action = {
         {
           title: "Updating configuration values",
           task: async () => {
-            await updateConfig("actions", ["setup-express"])
+            await updateConfig("actions", ["setup-express"], configPath)
           },
         },
       ])

@@ -24,9 +24,11 @@ export const setupExird: Action = {
       }
 
       let config: ExirdConfig
+      let configPath: string
+      let folderMessage: string = ""
 
-      if (!projectDetails.isEmpty && !projectDetails.hasExpress && projectDetails.packageJsonExists) {
-        console.log("Express not found thus cannot be initialized at this location")
+      if ((!projectDetails.isEmpty && !projectDetails.hasExpress) || projectDetails.packageJsonExists) {
+        console.log("Express Project cannot be initialized at this location")
         const initializeNewProject = await promptInitializeNewProject()
         if (initializeNewProject === "Yes") {
           const folder = await getFolder()
@@ -35,12 +37,15 @@ export const setupExird: Action = {
           process.chdir(newFolder)
           config = await generateConfig(projectDetails)
           config.name = folder
+          folderMessage = `cd ${folder}`
+          configPath = path.join(newFolder, ".exird", "exird.config.json")
         } else {
           console.log(chalk.grey("EXT"), "Project initialization aborted.")
           process.exit(0)
         }
       } else {
         config = await generateConfig(projectDetails)
+        configPath = path.join(process.cwd(), ".exird", "exird.config.json")
       }
 
       const exirdDir = path.join(process.cwd(), ".exird")
@@ -55,9 +60,9 @@ export const setupExird: Action = {
         content: exirdjsContent,
       })
 
-      await updateConfig("actions", ["setup-exird"])
+      await updateConfig("actions", ["setup-exird"], configPath)
 
-      console.log(chalk.green("SCS"), "Exird initialized successfully!`\nNow run exird workflow")
+      console.log(chalk.green("SCS"), `Exird initialized successfully!\n${folderMessage}\nNow run exird workflow`)
     } catch (error) {
       globalErrorHandler(error)
     }

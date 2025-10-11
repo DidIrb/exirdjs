@@ -13,7 +13,7 @@ export const checkForPackageJson = (dirPath: string): boolean => {
   return fs.existsSync(packageJsonPath)
 }
 
-export function updateConfig<K extends keyof ExirdConfig>(key: K, value: ExirdConfig[K]) {
+export function updateConfig<K extends keyof ExirdConfig>(key: K, value: ExirdConfig[K], configPath: string) {
   const config: ExirdConfig = fs.readJsonSync(configPath)
 
   if (Array.isArray(config[key]) && Array.isArray(value)) {

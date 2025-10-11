@@ -31,7 +31,8 @@ export const addons: Action = {
           const subAction = subActions[normalized]
           if (subAction) {
             await subAction.execute()
-            updateConfig("addons", { ...config.addons, [normalized]: subAction.description })
+
+            updateConfig("addons", { ...config.addons, [normalized]: subAction.description }, configPath)
           } else {
             throw new Error(`Addons "${subActionName}" not found.`)
           }
