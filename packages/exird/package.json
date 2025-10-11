@@ -1,6 +1,6 @@
 {
   "name": "exird",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "description": "The exird CLI is a tool for creating and managing Express applications, making development faster and easier",
   "main": "dist/index.js",
   "type": "module",

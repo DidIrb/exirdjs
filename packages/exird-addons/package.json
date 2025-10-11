@@ -1,6 +1,6 @@
 {
   "name": "exird-addons",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "A shared utility package for the exirdjs project, providing common functions used by the exird CLI tool and the create-exird scaffolding tool to streamline Express application development.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

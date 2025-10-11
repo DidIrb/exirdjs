@@ -1,5 +1,22 @@
 # exird
 
+## 0.3.0
+
+### Minor Changes
+
+- [`b9a99eb`](https://github.com/DidIrb/exirdjs/commit/b9a99ebd7205ee61fa559536f62eaabfbb77af50) Thanks [@DidIrb](https://github.com/DidIrb)! - ## exirdjs cli
+
+  Exird CLI Refactored to support, actions, workflows and sub actions, these primarily are steps users can take to setup an express application.
+
+  ## exird-addons
+
+  Introduced the concepts of workflows and actions in the workflow to, taking advantage of workflows to run actions using exird cli.
+
+### Patch Changes
+
+- Updated dependencies [[`b9a99eb`](https://github.com/DidIrb/exirdjs/commit/b9a99ebd7205ee61fa559536f62eaabfbb77af50)]:
+  - exird-addons@0.2.0
+
 ## 0.2.7
 
 ### Patch Changes
